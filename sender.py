@@ -25,3 +25,6 @@ def send_email(
     msg["From"] = from_email
     msg["To"] = to_email
     msg["Subject"] = subject
+
+    # Attach email body
+    msg.attach(MIMEText(body, "plain"))
