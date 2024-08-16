@@ -34,3 +34,11 @@ def send_email(
         if not os.path.isfile(attachment_path):
             print(f"Error: The file {attachment_path} does not exist.")
             return
+
+        filename = os.path.basename(attachment_path)
+        with open(attachment_path, "rb") as attachment:
+            part = MIMEBase("application", "octet-stream")
+            part.set_payload(attachment.read())
+            encoders.encode_base64(part)
+            part.add_header("Content-Disposition", f"attachment; filename={filename}")
+            msg.attach(part)
