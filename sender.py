@@ -42,3 +42,16 @@ def send_email(
             encoders.encode_base64(part)
             part.add_header("Content-Disposition", f"attachment; filename={filename}")
             msg.attach(part)
+
+    # Connect to SMTP server and send email
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(login, password)
+        text = msg.as_string()
+        server.sendmail(from_email, to_email, text)
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+    finally:
+        server.quit()
