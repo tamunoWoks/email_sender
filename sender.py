@@ -28,3 +28,9 @@ def send_email(
 
     # Attach email body
     msg.attach(MIMEText(body, "plain"))
+
+    # Attach file if provided
+    if attachment_path:
+        if not os.path.isfile(attachment_path):
+            print(f"Error: The file {attachment_path} does not exist.")
+            return
