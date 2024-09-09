@@ -52,18 +52,27 @@ def send_email(
             print(f"Error: Failed to read attachment. {e}")
             return
 
-    # Connect to SMTP server and send email
-    try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(login, password)
-        text = msg.as_string()
-        server.sendmail(from_email, to_email, text)
-        print("Email sent successfully!")
-    except Exception as e:
-        print(f"Failed to send email: {e}")
-    finally:
-        server.quit()
+    # Attempt to send the email with retries
+    attempt = 0
+    while attempt < retries:
+        try:
+            print(f"Attempt {attempt + 1} to send email...")
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()
+            server.login(login, password)
+            text = msg.as_string()
+            server.sendmail(from_email, to_email, text)
+            print("Email sent successfully!")
+            return  # Exit function once email is successfully sent
+        except smtplib.SMTPAuthenticationError:
+            print("Error: Authentication failed. Check your username and password.")
+            break  # Authentication failure usually doesn't need retrying
+        except smtplib.SMTPConnectError:
+            print("Error: Unable to connect to the SMTP server.")
+        except smtplib.SMTPException as e:
+            print(f"Failed to send email: {e}")
+        finally:
+            server.quit()
 
 # Sample usage
 if __name__ == "__main__":
