@@ -39,12 +39,18 @@ def send_email(
             return
 
         filename = os.path.basename(attachment_path)
-        with open(attachment_path, "rb") as attachment:
-            part = MIMEBase("application", "octet-stream")
-            part.set_payload(attachment.read())
-            encoders.encode_base64(part)
-            part.add_header("Content-Disposition", f"attachment; filename={filename}")
-            msg.attach(part)
+        try:
+            with open(attachment_path, "rb") as attachment:
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(attachment.read())
+                encoders.encode_base64(part)
+                part.add_header(
+                    "Content-Disposition", f"attachment; filename={filename}"
+                )
+                msg.attach(part)
+        except Exception as e:
+            print(f"Error: Failed to read attachment. {e}")
+            return
 
     # Connect to SMTP server and send email
     try:
