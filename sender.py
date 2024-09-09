@@ -98,3 +98,17 @@ if __name__ == "__main__":
     # Ensure credentials are set
     if not login or not password:
         raise ValueError("Email login or password not set in environment variables.")
+
+    attachment_path = "path_to_your_file.txt"
+
+    send_email(
+        subject,
+        body,
+        to_email,
+        from_email,
+        smtp_server,
+        smtp_port,
+        login,
+        password,
+        attachment_path,
+    )
