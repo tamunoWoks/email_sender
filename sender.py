@@ -74,6 +74,14 @@ def send_email(
         finally:
             server.quit()
 
+        # Increment the attempt counter and wait before retrying
+        attempt += 1
+        if attempt < retries:
+            print(f"Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+
+    print("Email sending failed after multiple attempts.")
+
 # Sample usage
 if __name__ == "__main__":
     subject = "Test Email"
