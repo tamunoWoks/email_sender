@@ -90,5 +90,7 @@ if __name__ == "__main__":
     from_email = "your_email@example.com"
     smtp_server = "smtp.example.com"
     smtp_port = 587
-    
- 
+
+    # Fetch email credentials from environment variables for security
+    login = os.getenv("EMAIL_LOGIN")
+    password = os.getenv("EMAIL_PASSWORD")
