@@ -20,6 +20,8 @@ def send_email(
     login,
     password,
     attachment_path=None,
+    retries=3,  # Number of retry attempts
+    retry_delay=5  # Delay between retries in seconds
 ):
     # Create message container
     msg = MIMEMultipart()
