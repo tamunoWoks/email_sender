@@ -90,18 +90,5 @@ if __name__ == "__main__":
     from_email = "your_email@example.com"
     smtp_server = "smtp.example.com"
     smtp_port = 587
-    login = "your_email@example.com"
-    password = "your_password"
-    attachment_path = "path_to_your_file.txt"
-
-    send_email(
-        subject,
-        body,
-        to_email,
-        from_email,
-        smtp_server,
-        smtp_port,
-        login,
-        password,
-        attachment_path,
-    )
+    
+ 
