@@ -94,3 +94,7 @@ if __name__ == "__main__":
     # Fetch email credentials from environment variables for security
     login = os.getenv("EMAIL_LOGIN")
     password = os.getenv("EMAIL_PASSWORD")
+
+    # Ensure credentials are set
+    if not login or not password:
+        raise ValueError("Email login or password not set in environment variables.")
